@@ -19,8 +19,6 @@ public class DashController : MonoBehaviour
     void Start()
     {
         player = GetComponent<PlayerController>();
-        //canvas = GameObject.Find("Canvas");
-        //dashPointsTxT = canvas.Get
     }
 
     // Update is called once per frame
@@ -43,10 +41,10 @@ public class DashController : MonoBehaviour
 
     private void DashRecharge()
     {
-            if (player.character.isGrounded) dashPoints += 12;
-            else dashPoints += 6;
+        if (player.character.isGrounded) dashPoints += 12;
+        else dashPoints += 6;
         if (dashPoints > 99) dashPoints = 99;
-            dashPointsTxT.text = "Dash Points: " + dashPoints;
+        dashPointsTxT.text = "Dash Points: " + dashPoints;
     }
 
     IEnumerator Dash()
@@ -57,7 +55,7 @@ public class DashController : MonoBehaviour
         {
             player.gravityOn = false;
             player.isDashing = true;
-            Vector3 actualDirection = player.direction;
+            Vector3 actualDirection = player.inputDir;
 
             actualDirection.y = 0;
             if (actualDirection.sqrMagnitude == 0) actualDirection = player.transform.forward;
@@ -65,7 +63,7 @@ public class DashController : MonoBehaviour
             player.character.Move(actualDirection.normalized * dashSpeed * Time.deltaTime);
             yield return null;
         }
-        player.directionY = 0;
+        player.direction.y = 0;
         player.gravityOn = true;
         player.isDashing = false;
     }

@@ -7,10 +7,13 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField] protected Transform muzzle;
     [SerializeField] protected GameObject muzzleFlash;
     [SerializeField] protected GameObject ammunition;
+    public int weaponNum;
     protected float fireRate;
     private GameObject muzzleObject;
     public float fireTimer = 0;
     public FireType fireType;
+    
+    [HideInInspector]public bool isUsable = false;
 
     public enum FireType
     {
@@ -21,21 +24,16 @@ public abstract class Weapon : MonoBehaviour
     public void Update()
     {
         if (fireTimer > 0) fireTimer -= Time.deltaTime;
-        if (muzzleObject != null)
-        {
-            muzzleObject.transform.position = muzzle.transform.position;
-            muzzleObject.transform.rotation = muzzle.transform.rotation;
-        }
     }
 
     public void Fire()
     {
         if (fireTimer <= 0)
         {
-            Instantiate(ammunition, Camera.main.transform.position + Camera.main.transform.forward * 0.2f, Camera.main.transform.rotation);
+            Instantiate(ammunition, muzzle.transform.position, Camera.main.transform.rotation);
             if (muzzleFlash != null)
             {
-                muzzleObject = Instantiate(muzzleFlash, muzzle.transform.position, muzzle.transform.rotation);
+                muzzleObject = Instantiate(muzzleFlash, muzzle.transform);
                 Destroy(muzzleObject, 1.5f);
             }
             fireTimer = fireRate;

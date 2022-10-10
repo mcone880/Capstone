@@ -10,10 +10,9 @@ public class BouncePad : MonoBehaviour
     {
         if(other.GetComponent<PlayerController>())
         {
-            Debug.Log("Collide");
             PlayerController player = other.GetComponent<PlayerController>();
             player.canDoubleJump = true;
-            player.Jump(jumpForce, false);
+            player.Jump(jumpForce, transform.up);
         }
     }
 }

@@ -56,11 +56,10 @@ public class GrappleHook : MonoBehaviour
             {
                 if (hit2.collider.gameObject.TryGetComponent<GrappleObject>(out GrappleObject grapple))
                 {
-                    Debug.Log("Hook Made");
                     attachedObject = grapple.gameObject;
                     hook = Instantiate(hookPrefab, player.transform.position, player.transform.rotation);
                     player.gravityOn = false;
-                    player.directionY = 0;
+                    player.direction.y = 0;
                     Yeet();
                 }
             }
@@ -92,11 +91,10 @@ public class GrappleHook : MonoBehaviour
 
     private void Attach(GameObject grapple)
     {
-        print("Attach");
         if (grapple.TryGetComponent<Enemy>(out Enemy enemy)) enemy.canMove = false;
         
         Vector3 direction = attachedObject.transform.position - player.transform.position;
-        if (Vector3.Distance(player.transform.position, attachedObject.transform.position) >= 0.5) player.GetComponent<ImpactReceiver>().AddImpact(direction.normalized, pullSpeed);
+        if (Vector3.Distance(player.transform.position, attachedObject.transform.position) >= 0.5) player.GetComponent<ImpactReceiver>().AddImpact(direction, pullSpeed);
         else if (Vector3.Distance(player.transform.position, attachedObject.transform.position) < 0.5) Dettach();
     }
 

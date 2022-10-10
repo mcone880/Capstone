@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class WeaponsController : MonoBehaviour
 {
     [SerializeField] public Transform weaponTransform;
 
-    public List<GameObject> weaponsObject = new List<GameObject>();
+    public List<GameObject> weaponsList = new List<GameObject>();
     public GameObject currentWeapon;
     public GameObject prevWeapon;
     public int currentWeaponIndex;
@@ -22,40 +23,49 @@ public class WeaponsController : MonoBehaviour
         weapon.gameObject.SetActive(false);
     }
 
+    public GameObject GetWeaponFromInventory(int weaponNum)
+    {
+        if (CheckWeapons(weaponNum)) return weaponsList[weaponNum];
+        return null;
+    }
+
+    public bool CheckWeapons(int weaponNum)
+    {
+        return weaponsList[weaponNum].GetComponent<Weapon>().isUsable;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Alpha1) && weaponsObject.Count >= 1 && currentWeapon != null)
-        {
+        if (weaponsList[0].GetComponent<Weapon>().isUsable) print("Shotgun On");
+
+        if(Input.GetKeyDown(KeyCode.Alpha1) && CheckWeapons(0))
+        {   
             prevWeapon = currentWeapon;
-            DisableWeapon(weaponTransform.GetChild(currentWeaponIndex));
-            currentWeapon = weaponsObject[0];
-            currentWeaponIndex = 0;
-            EnableWeapon(weaponTransform.GetChild(currentWeaponIndex));
+            DisableWeapon(weaponTransform.GetChild(prevWeapon.GetComponent<Weapon>().weaponNum));
+            currentWeapon = GetWeaponFromInventory(0);
+            EnableWeapon(weaponTransform.GetChild(0));
         }
-        else if(Input.GetKeyDown(KeyCode.Alpha2) && weaponsObject.Count >= 2 && currentWeapon != null)
+        else if(Input.GetKeyDown(KeyCode.Alpha2) && CheckWeapons(1))
         {
             prevWeapon = currentWeapon;
-            DisableWeapon(weaponTransform.GetChild(currentWeaponIndex));
-            currentWeapon = weaponsObject[1];
-            currentWeaponIndex = 1;
-            EnableWeapon(weaponTransform.GetChild(currentWeaponIndex));
+            DisableWeapon(weaponTransform.GetChild(prevWeapon.GetComponent<Weapon>().weaponNum));
+            currentWeapon = GetWeaponFromInventory(1);
+            EnableWeapon(weaponTransform.GetChild(1));
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha3) && weaponsObject.Count >= 3 && currentWeapon != null)
+        else if (Input.GetKeyDown(KeyCode.Alpha3) && weaponsList.Count >= 3 && currentWeapon != null)
         {
             prevWeapon = currentWeapon;
-            DisableWeapon(weaponTransform.GetChild(currentWeaponIndex));
-            currentWeapon = weaponsObject[3];
-            currentWeaponIndex = 2;
-            EnableWeapon(weaponTransform.GetChild(currentWeaponIndex));
+            DisableWeapon(weaponTransform.GetChild(prevWeapon.GetComponent<Weapon>().weaponNum));
+            currentWeapon = GetWeaponFromInventory(2);
+            EnableWeapon(weaponTransform.GetChild(2));
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha4) && weaponsObject.Count >= 4 && currentWeapon != null)
+        else if (Input.GetKeyDown(KeyCode.Alpha4) && weaponsList.Count >= 4 && currentWeapon != null)
         {
             prevWeapon = currentWeapon;
-            DisableWeapon(weaponTransform.GetChild(currentWeaponIndex));
-            currentWeapon = weaponsObject[3];
-            currentWeaponIndex = 3;
-            EnableWeapon(weaponTransform.GetChild(currentWeaponIndex));
+            DisableWeapon(weaponTransform.GetChild(prevWeapon.GetComponent<Weapon>().weaponNum));
+            currentWeapon = GetWeaponFromInventory(3);
+            EnableWeapon(weaponTransform.GetChild(3));
         }
         
         if(currentWeapon)

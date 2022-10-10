@@ -102,7 +102,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3342648891637519880
 Transform:
   m_ObjectHideFlags: 0
@@ -135,8 +135,10 @@ MonoBehaviour:
   muzzle: {fileID: 2513745795329735543}
   muzzleFlash: {fileID: 6118756352154293175, guid: 742ceaa46ac98f142b2ff98d0c669796, type: 3}
   ammunition: {fileID: 7862039155370611812, guid: 304ac059f60103f419dbc0d8d53e8941, type: 3}
+  weaponNum: 0
   fireTimer: 0
   fireType: 1
+  isUsable: 1
   fireTime: 0
 --- !u!1 &2704322439352057161
 GameObject:

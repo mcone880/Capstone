@@ -4,23 +4,20 @@ using UnityEngine;
 
 public class WeaponPickup : MonoBehaviour
 {
-    [SerializeField] GameObject weapon;
-    
+    [SerializeField] int weaponNum;
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.TryGetComponent<WeaponsController>(out WeaponsController controller))
         {
-            GameObject actualWeapon = Instantiate(weapon, controller.weaponTransform);
-            controller.weaponsObject.Add(weapon);
+            controller.weaponsList[weaponNum].GetComponent<Weapon>().isUsable = true;
             if (controller.currentWeapon == null)
             {
-                controller.currentWeapon = actualWeapon;
-                controller.currentWeaponIndex = 0;
-                controller.EnableWeapon(controller.weaponTransform.GetChild(controller.currentWeaponIndex));
+                controller.currentWeapon = controller.weaponsList[weaponNum];
+                controller.EnableWeapon(controller.weaponsList[weaponNum].transform);
             } else
             {
-                controller.DisableWeapon(controller.weaponTransform.GetChild(controller.currentWeaponIndex + 1));
+                controller.DisableWeapon(controller.weaponsList[weaponNum].transform);
             }
             Destroy(gameObject);
         }
