@@ -25,7 +25,7 @@ public class Damage : MonoBehaviour
         Destroy(explode, 2);
     }
 
-    public void CreateExplosion(Collider other, float radius, float dmg, float dmgfalloff, float explosionForce)
+    public void CreateExplosion(float radius, float dmg, float dmgfalloff, float explosionForce)
     {
         Vector3 explosionCenter = transform.position;
         SpawnExplosion(explosionCenter, Quaternion.identity, radius);

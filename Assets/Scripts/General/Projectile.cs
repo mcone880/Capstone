@@ -29,7 +29,7 @@ public abstract class Projectile : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         print(other.gameObject.name);
-        if (DmgType == DamageType.AOE) DamageScript.CreateExplosion(other, ExplosionRad, Damage, DmgFalloff, Knockback);
+        if (DmgType == DamageType.AOE) DamageScript.CreateExplosion(ExplosionRad, Damage, DmgFalloff, Knockback);
         else DamageScript.DealDamage(other, Damage, Knockback);
         Destroy(gameObject);
     }

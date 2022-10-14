@@ -57,9 +57,19 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if (character.isGrounded && direction.y < 0) direction.y = 0;
         if(gravityOn) direction.y -= gravity * Time.deltaTime;
-
         if(!isDashing) character.Move(moveSpeed * Time.deltaTime * (direction + inputDir));
+
+        if (direction.y > 0)
+        {
+            if (Physics.Raycast(transform.position + (Vector3.up * character.height * 0.5f), Vector3.up, out RaycastHit hitinfo, 2f))
+            {
+                print("Raycast");
+                direction.y = 0;
+                inputDir.y = 0;
+            }
+        }
 
         if(camControl)
         {
