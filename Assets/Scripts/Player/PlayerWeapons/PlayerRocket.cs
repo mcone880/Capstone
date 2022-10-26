@@ -7,7 +7,6 @@ public class PlayerRocket : Projectile
     [SerializeField] float travelSpeed;
     [SerializeField] float rocketDmg;
     [SerializeField] float destroyTime;
-    [SerializeField] float damageFalloff;
     [SerializeField] float explosionRadius;
     [SerializeField] float knockback;
 
@@ -17,7 +16,6 @@ public class PlayerRocket : Projectile
         Speed = travelSpeed;
         Knockback = knockback;
         ProjType = ProjectileType.CONT_MOVEMENT;
-        DmgFalloff = damageFalloff;
         DmgType = DamageType.AOE;
         Damage = rocketDmg;
         DestTime = destroyTime;

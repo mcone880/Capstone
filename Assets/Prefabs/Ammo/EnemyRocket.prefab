@@ -125,10 +125,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6257ae4b04b8a8e4b886fcd932b8aa4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  longRangeWeapon: 1
+  falloffDistance: 45
   travelSpeed: 5
   rocketDmg: 1
   destroyTime: 5
-  damageFalloff: 0
 --- !u!114 &1032415989732040818
 MonoBehaviour:
   m_ObjectHideFlags: 0

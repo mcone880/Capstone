@@ -25,7 +25,7 @@ public class Damage : MonoBehaviour
         Destroy(explode, 2);
     }
 
-    public void CreateExplosion(float radius, float dmg, float dmgfalloff, float explosionForce)
+    public void CreateExplosion(float radius, float dmg, float explosionForce, bool longRangeWeapon, int falloffDistance, Vector3 spawn)
     {
         Vector3 explosionCenter = transform.position;
         SpawnExplosion(explosionCenter, Quaternion.identity, radius);
@@ -38,12 +38,25 @@ public class Damage : MonoBehaviour
             //Deal Damage
             if (hit.gameObject.TryGetComponent(out Health objectHealth))
             {
+                float distFromOrigin = Mathf.Abs(Vector3.Distance(spawn, hit.transform.position));
+                float dmgMulti = 1;
+                if (distFromOrigin > falloffDistance)
+                {
+                    for (int j = 0; j < distFromOrigin - falloffDistance; j++)
+                    {
+                        if (longRangeWeapon) dmgMulti *= 1.04f;
+                        else dmgMulti *= 0.96f;
+                    }
+                    if(dmgMulti > 1) dmgMulti = Mathf.Min(dmgMulti, 1.5f);
+                    if(dmgMulti < 1) dmgMulti = Mathf.Max(dmgMulti, 0.1f);
+                }
                 //Gotta distance scale
-                objectHealth.health -= dmg;
+                print(dmgMulti);
+                objectHealth.health = Mathf.Round(objectHealth.health - dmg * dmgMulti);
             }
 
             //Deal Knockback
-            if(hit.gameObject.TryGetComponent(out Rigidbody rb))
+            if (hit.gameObject.TryGetComponent(out Rigidbody rb))
             {
                 //might already Lerp? Gotta look into it
                 print(rb.gameObject.name);

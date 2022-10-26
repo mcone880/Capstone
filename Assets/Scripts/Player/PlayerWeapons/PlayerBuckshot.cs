@@ -7,13 +7,11 @@ public class PlayerBuckshot : Projectile
     [SerializeField] float travelSpeed;
     [SerializeField] float pelletDmg;
     [SerializeField] float destroyTime;
-    [SerializeField] float damageFalloff;
 
     private void Start()
     {
         DamageScript = gameObject.GetComponent<Damage>();
         ProjType = ProjectileType.CONT_MOVEMENT;
-        DmgFalloff = damageFalloff;
         DmgType = DamageType.SINGLE;
         Speed = travelSpeed;
         Damage = pelletDmg;

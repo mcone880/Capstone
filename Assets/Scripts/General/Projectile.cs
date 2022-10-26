@@ -4,15 +4,19 @@ using UnityEngine;
 
 public abstract class Projectile : MonoBehaviour
 {
+    [SerializeField] protected bool longRangeWeapon;
+    [SerializeField] protected int falloffDistance;
+
     protected float Speed;
     protected float Damage;
     protected float ExplosionRad;
     protected ProjectileType ProjType;
     protected DamageType DmgType;
     protected Damage DamageScript;
-    protected float DmgFalloff;
     protected float Knockback;
     protected float DestTime;
+
+    public Vector3 spawnPoint;
     
     public enum ProjectileType
     {
@@ -29,7 +33,7 @@ public abstract class Projectile : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         print(other.gameObject.name);
-        if (DmgType == DamageType.AOE) DamageScript.CreateExplosion(ExplosionRad, Damage, DmgFalloff, Knockback);
+        if (DmgType == DamageType.AOE) DamageScript.CreateExplosion(ExplosionRad, Damage, Knockback, longRangeWeapon, falloffDistance, spawnPoint);
         else DamageScript.DealDamage(other, Damage, Knockback);
         Destroy(gameObject);
     }
