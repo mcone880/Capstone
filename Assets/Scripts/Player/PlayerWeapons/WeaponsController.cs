@@ -37,8 +37,6 @@ public class WeaponsController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (weaponsList[0].GetComponent<Weapon>().isUsable) print("Shotgun On");
-
         if(Input.GetKeyDown(KeyCode.Alpha1) && CheckWeapons(0))
         {   
             prevWeapon = currentWeapon;

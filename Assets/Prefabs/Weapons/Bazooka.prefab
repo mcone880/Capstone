@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &9124824190172376038
 Transform:
   m_ObjectHideFlags: 0
@@ -96,7 +96,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eb078b759a9ffa448554d740548b533, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireTimer: 0
+  muzzle: {fileID: 0}
+  muzzleFlash: {fileID: 0}
   ammunition: {fileID: 7754820295574191515, guid: 9e3d9d43a3f722044b40c57727d9db1b, type: 3}
+  IsHitscan: 0
+  longRangeWeapon: 0
+  falloffDistance: 0
+  weaponNum: 0
+  fireTimer: 0
   fireType: 1
+  isUsable: 0
   fireTime: 8

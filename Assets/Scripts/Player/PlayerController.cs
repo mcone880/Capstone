@@ -65,7 +65,6 @@ public class PlayerController : MonoBehaviour
         {
             if (Physics.Raycast(transform.position + (Vector3.up * character.height * 0.5f), Vector3.up, out RaycastHit hitinfo, 2f))
             {
-                print("Raycast");
                 direction.y = 0;
                 inputDir.y = 0;
             }

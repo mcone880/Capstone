@@ -13,7 +13,6 @@ public abstract class Projectile : MonoBehaviour
     protected ProjectileType ProjType;
     protected DamageType DmgType;
     protected Damage DamageScript;
-    protected float Knockback;
     protected float DestTime;
 
     public Vector3 spawnPoint;
@@ -32,9 +31,8 @@ public abstract class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        print(other.gameObject.name);
-        if (DmgType == DamageType.AOE) DamageScript.CreateExplosion(ExplosionRad, Damage, Knockback, longRangeWeapon, falloffDistance, spawnPoint);
-        else DamageScript.DealDamage(other, Damage, Knockback);
+        if (DmgType == DamageType.AOE) DamageScript.CreateExplosion(ExplosionRad, Damage, longRangeWeapon, falloffDistance, spawnPoint);
+        else DamageScript.DealDamage(other, Damage);
         Destroy(gameObject);
     }
 

@@ -22,7 +22,6 @@ public class Pause : Singleton<Pause>
 
     public void PauseGame()
     {
-        print("paused");
         paused = !paused;
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
@@ -33,7 +32,6 @@ public class Pause : Singleton<Pause>
 
     public void ResumeGame()
     {
-        print("Start");
         paused = !paused;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;

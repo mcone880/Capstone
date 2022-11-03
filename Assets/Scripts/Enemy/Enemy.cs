@@ -2,19 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour
 {
-    public bool canMove;
+    protected Movement movement;
+    [HideInInspector]public bool isRanged;
+    protected Health health;
 
-    // Start is called before the first frame update
-    void Start()
+    public void Update()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        movement.Move();
     }
 }

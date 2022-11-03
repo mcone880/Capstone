@@ -64,7 +64,6 @@ public abstract class Weapon : MonoBehaviour
                                     else dmgMulti *= 0.96f;
                                 }
                             }
-                            print(dmgMulti);
                             objectHealth.health = Mathf.Round(objectHealth.health - dmgPerRay * dmgMulti);
                         }
                     }

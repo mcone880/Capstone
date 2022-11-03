@@ -18,7 +18,6 @@ public class PatrolObject : MonoBehaviour
         startPoint = targetPoint;
         targetNum = 0;
         startNum = targetNum;
-        print(targetPoint.name);
         for(int i = 1; i < patrolPoints.Count; i++)
         {
             if(Vector3.Distance(transform.position, patrolPoints[i].position) < Vector3.Distance(transform.position, targetPoint.position))
@@ -27,7 +26,6 @@ public class PatrolObject : MonoBehaviour
                 targetNum = i;
                 startPoint = patrolPoints[i];
                 startNum = targetNum;
-                print("Start: " + startPoint.name);
             }
         }
     }
@@ -46,12 +44,10 @@ public class PatrolObject : MonoBehaviour
             {
                 targetPoint = patrolPoints[targetNum + 1];
                 targetNum++;
-                print(targetPoint.name);
             }
             else
             {
                 targetPoint = startPoint;
-                print(targetPoint.name);
                 targetNum = startNum;
             }
         }
