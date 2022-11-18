@@ -11,6 +11,7 @@ public class GrappleHook : MonoBehaviour
     [SerializeField] float hookTravelSpeed;
     [SerializeField] Image greenCrosshair;
     [SerializeField] Image redCrosshair;
+    [SerializeField] LayerMask myLayerMask;
 
     private PlayerController player;
     private bool isAttached = false;
@@ -31,7 +32,7 @@ public class GrappleHook : MonoBehaviour
     {
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
         RaycastHit hit;
-        Physics.SphereCast(ray, 1f, out hit, 50);
+        Physics.SphereCast(ray, 1f, out hit, 50, myLayerMask);
         if (hit.collider)
         {
             if (hit.collider.gameObject.TryGetComponent<GrappleObject>(out _) && grappleTimer <= 0)
@@ -51,7 +52,7 @@ public class GrappleHook : MonoBehaviour
         {
             Ray ray2 = Camera.main.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
             RaycastHit hit2;
-            Physics.SphereCast(ray2, 1.25f, out hit2, 50);
+            Physics.SphereCast(ray2, 1.25f, out hit2, 50, myLayerMask);
             if (hit2.collider)
             {
                 if (hit2.collider.gameObject.TryGetComponent<GrappleObject>(out GrappleObject grapple))
@@ -91,11 +92,25 @@ public class GrappleHook : MonoBehaviour
 
     private void Attach(GameObject grapple)
     {
-        if (grapple.TryGetComponent<Movement>(out Movement enemy)) enemy.canMove = false;
+        if(grapple.transform.parent)
+        {
+            if (grapple.transform.parent.TryGetComponent<Enemy>(out Enemy enemy)) enemy.canMove = false;
+        }
         
         Vector3 direction = attachedObject.transform.position - player.transform.position;
         if (Vector3.Distance(player.transform.position, attachedObject.transform.position) >= 0.5) player.GetComponent<ImpactReceiver>().AddImpact(direction, pullSpeed);
-        else if (Vector3.Distance(player.transform.position, attachedObject.transform.position) < 0.5) Dettach();
+        else if (Vector3.Distance(player.transform.position, attachedObject.transform.position) < 0.5) DettachEnemy(grapple);
+    }
+
+    private void DettachEnemy(GameObject grapple)
+    {
+        if (grapple.transform.parent.TryGetComponent<Enemy>(out Enemy enemy)) enemy.canMove = true;
+        player.gravityOn = true;
+        isAttached = false;
+        Destroy(hook);
+        hook = null;
+        player.canDoubleJump = true;
+        grappleTimer = grappleCooldown;
     }
 
     private void Dettach()

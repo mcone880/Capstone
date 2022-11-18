@@ -6,6 +6,7 @@ using UnityEngine;
 public class WeaponsController : MonoBehaviour
 {
     [SerializeField] public Transform weaponTransform;
+    [SerializeField] protected Animator animator;
 
     public List<GameObject> weaponsList = new List<GameObject>();
     public GameObject currentWeapon;
@@ -15,12 +16,14 @@ public class WeaponsController : MonoBehaviour
     public void EnableWeapon(Transform weapon)
     {
         weapon.gameObject.SetActive(true);
-        weapon.gameObject.GetComponent<Weapon>().fireTimer = 0;
+        weapon.gameObject.GetComponent<Weapon>().fireTimer = weapon.gameObject.GetComponent<Weapon>().weaponDrawSpeed;
+        animator.SetBool("Is" + weapon.gameObject.GetComponent<Weapon>().AnimatorName, true);
     }
 
     public void DisableWeapon(Transform weapon)
     {
         weapon.gameObject.SetActive(false);
+        animator.SetBool("Is" + weapon.gameObject.GetComponent<Weapon>().AnimatorName, false);
     }
 
     public GameObject GetWeaponFromInventory(int weaponNum)
@@ -51,14 +54,14 @@ public class WeaponsController : MonoBehaviour
             currentWeapon = GetWeaponFromInventory(1);
             EnableWeapon(weaponTransform.GetChild(1));
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha3) && weaponsList.Count >= 3 && currentWeapon != null)
+        else if (Input.GetKeyDown(KeyCode.Alpha3) && CheckWeapons(2))
         {
             prevWeapon = currentWeapon;
             DisableWeapon(weaponTransform.GetChild(prevWeapon.GetComponent<Weapon>().weaponNum));
             currentWeapon = GetWeaponFromInventory(2);
             EnableWeapon(weaponTransform.GetChild(2));
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha4) && weaponsList.Count >= 4 && currentWeapon != null)
+        else if (Input.GetKeyDown(KeyCode.Alpha4) && CheckWeapons(3))
         {
             prevWeapon = currentWeapon;
             DisableWeapon(weaponTransform.GetChild(prevWeapon.GetComponent<Weapon>().weaponNum));
@@ -73,13 +76,13 @@ public class WeaponsController : MonoBehaviour
                 case Weapon.FireType.AUTOMATIC:
                     if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKey(KeyCode.Mouse0))
                     {
-                        currentWeapon.GetComponent<Weapon>().Fire();
+                        currentWeapon.GetComponent<Weapon>().Fire(animator);
                     }
                     break;
                 case Weapon.FireType.SINGLE_SHOT:
                     if (Input.GetKeyDown(KeyCode.Mouse0))
                     {
-                        currentWeapon.GetComponent<Weapon>().Fire();
+                        currentWeapon.GetComponent<Weapon>().Fire(animator);
                     }
                     break;
             }

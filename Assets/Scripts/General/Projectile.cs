@@ -6,6 +6,7 @@ public abstract class Projectile : MonoBehaviour
 {
     [SerializeField] protected bool longRangeWeapon;
     [SerializeField] protected int falloffDistance;
+    [SerializeField] protected AudioSource explosionSound;
 
     protected float Speed;
     protected float Damage;
@@ -31,7 +32,11 @@ public abstract class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (DmgType == DamageType.AOE) DamageScript.CreateExplosion(ExplosionRad, Damage, longRangeWeapon, falloffDistance, spawnPoint);
+        if (DmgType == DamageType.AOE)
+        {
+            if(explosionSound != null)explosionSound.Play();
+            if(DamageScript)DamageScript.CreateExplosion(ExplosionRad, Damage, longRangeWeapon, falloffDistance, spawnPoint);
+        }
         else DamageScript.DealDamage(other, Damage);
         Destroy(gameObject);
     }

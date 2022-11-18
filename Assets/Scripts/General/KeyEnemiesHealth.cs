@@ -10,6 +10,7 @@ public class KeyEnemiesHealth : Condition
     {
         for(int i = 0; i < enemies.Count; i++)
         {
+            if (enemies[i] == null) enemies.RemoveAt(i);
             Health enemyH = enemies[i].GetComponent<Health>();
             if (enemyH.health > enemyH.maxhealth * healthPercentages[i])
             {

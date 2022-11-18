@@ -19,6 +19,11 @@ public class WeaponPickup : MonoBehaviour
             {
                 controller.DisableWeapon(controller.weaponsList[weaponNum].transform);
             }
+
+            if(TryGetComponent<ObstacleDestroyer>(out ObstacleDestroyer destroyer))
+            {
+                destroyer.Activate();
+            }
             Destroy(gameObject);
         }
     }

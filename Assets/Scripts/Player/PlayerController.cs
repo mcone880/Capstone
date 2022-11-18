@@ -18,8 +18,10 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public Vector3 inputDir = Vector3.zero;
     [HideInInspector] public bool canDoubleJump = false;
     [HideInInspector] public bool isDashing = false;
+    [HideInInspector] public Vector3 centerMass { get { return transform.position + Vector3.up * (0.5f * character.height); } }
     [HideInInspector] public bool camControl = true;
     private float rotationX = 0f;
+   
 
     private void Awake()
     {
@@ -75,7 +77,7 @@ public class PlayerController : MonoBehaviour
             rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
             rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
             playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
-            transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
+            transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0); 
         }
     }
 

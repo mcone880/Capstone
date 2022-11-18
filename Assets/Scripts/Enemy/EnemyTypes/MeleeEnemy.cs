@@ -6,11 +6,19 @@ public class MeleeEnemy : Enemy
 {
     [SerializeField] public float hitRange;
     [SerializeField] float hitDamage;
+    [SerializeField] BoxCollider attackHitbox;
 
-    public void Start()
+    public override void MeleeAttack()
     {
-        isRanged = false;
-        health = GetComponent<Health>();
-        movement = GetComponent<Movement>();
+        throw new System.NotImplementedException();
+    }
+
+    public override void RangedAttack()
+    {
+    }
+
+    public override void Start()
+    {
+        base.Start();
     }
 }

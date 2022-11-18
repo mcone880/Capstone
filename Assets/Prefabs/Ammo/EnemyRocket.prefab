@@ -14,8 +14,7 @@ GameObject:
   - component: {fileID: 7754820295574191508}
   - component: {fileID: 6392515768338490212}
   - component: {fileID: 3753595304378178123}
-  - component: {fileID: 1032415989732040818}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: EnemyRocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,19 +126,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   longRangeWeapon: 1
   falloffDistance: 45
+  explosionSound: {fileID: 0}
+  spawnPoint: {x: 0, y: 0, z: 0}
   travelSpeed: 5
   rocketDmg: 1
   destroyTime: 5
---- !u!114 &1032415989732040818
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7754820295574191515}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6f0bb9f7d4beab4ca3901c7e1d16fb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  explosion: {fileID: 2326510405465839551, guid: f397271818c8204468394b437141de82, type: 3}

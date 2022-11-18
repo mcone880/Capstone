@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - GrappleAble
+  - Area
+  - Node
   layers:
   - Default
   - TransparentFX
@@ -12,13 +14,13 @@ TagManager:
   - Player
   - Water
   - UI
+  - Barrier
+  - ArenaStart
   - PlayerProjectile
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Enemy
+  - EnemyProjectile
+  - Arena
+  - Node
   - 
   - 
   - 
