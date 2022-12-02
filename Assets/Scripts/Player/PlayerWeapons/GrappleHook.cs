@@ -91,12 +91,7 @@ public class GrappleHook : MonoBehaviour
     }
 
     private void Attach(GameObject grapple)
-    {
-        if(grapple.transform.parent)
-        {
-            if (grapple.transform.parent.TryGetComponent<Enemy>(out Enemy enemy)) enemy.canMove = false;
-        }
-        
+    {       
         Vector3 direction = attachedObject.transform.position - player.transform.position;
         if (Vector3.Distance(player.transform.position, attachedObject.transform.position) >= 0.5) player.GetComponent<ImpactReceiver>().AddImpact(direction, pullSpeed);
         else if (Vector3.Distance(player.transform.position, attachedObject.transform.position) < 0.5) DettachEnemy(grapple);
@@ -104,7 +99,6 @@ public class GrappleHook : MonoBehaviour
 
     private void DettachEnemy(GameObject grapple)
     {
-        if (grapple.transform.parent.TryGetComponent<Enemy>(out Enemy enemy)) enemy.canMove = true;
         player.gravityOn = true;
         isAttached = false;
         Destroy(hook);

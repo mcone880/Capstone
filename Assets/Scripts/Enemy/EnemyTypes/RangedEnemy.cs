@@ -50,7 +50,7 @@ public class RangedEnemy : Enemy
         else
         {
             transform.rotation = Quaternion.LookRotation(player.transform.position - transform.position, Vector3.up);
-            Shoot();
+            RangedAttack();
         }
     }
 
@@ -77,13 +77,12 @@ public class RangedEnemy : Enemy
     }
     private Node FindBestNode(Area area)
     {
-        List<Node> possibleNodes = new List<Node>(area.nodes);
+        List<Node> possibleNodes = new List<Node>();
         float currentNodeVal = 0;
         Node target = null;
-        for (int i = 0; i < possibleNodes.Count;)
+        foreach(var node in area.nodes)
         {
-            if (!possibleNodes[i].CanSeePlayer(eyes.position.y)) possibleNodes.Remove(possibleNodes[i]);
-            else i++;
+            if (node.CanSeePlayer(eyes.position.y)) possibleNodes.Add(node);
         }
 
         if (possibleNodes.Count == 0) return null;
@@ -123,12 +122,12 @@ public class RangedEnemy : Enemy
     {
         Area bestArea = null;
         Area parent = currentArea.parentArea;
-        List<Area> possibleAreas = new List<Area>(parent.childrenAreas);
+        List<Area> possibleAreas = new List<Area>();
         float currentAreaVal = 0;
 
-        for (int i = 0; i < possibleAreas.Count; i++)
+        foreach (var area in parent.childrenAreas)
         {
-            if (FindBestNode(possibleAreas[i]) == null) possibleAreas.Remove(possibleAreas[i]);
+            if (FindBestNode(area) != null) possibleAreas.Add(area);
         }
 
         for (int i = 0; i < possibleAreas.Count; i++)
@@ -155,9 +154,5 @@ public class RangedEnemy : Enemy
         }
 
         if(bestNode && canMove) navMesh.SetDestination(bestNode.transform.position);
-    }
-    private void Shoot()
-    {
-        RangedAttack();
     }
 }

@@ -232,10 +232,8 @@ MonoBehaviour:
   sightDist: 0
   eyes: {fileID: 3416698764406143061}
   navMesh: {fileID: 5868951331000233148}
-  minPlayerDist: 0
-  maxPlayerDist: 5
   canMove: 1
-  hitRange: 5
+  hitRange: 10
   hitDamage: 1
   attackHitbox: {fileID: 0}
 --- !u!195 &5868951331000233148
@@ -248,7 +246,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 10
+  m_Speed: 15
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120

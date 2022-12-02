@@ -62,10 +62,10 @@ public abstract class Weapon : MonoBehaviour
                     if (isLaser) line.SetPosition(0, muzzle.position);
                     Vector3 baseDir = Camera.main.transform.forward;
                     baseDir = (baseDir * 10 + Camera.main.transform.right * deviationList[i].x + Camera.main.transform.up * deviationList[i].y).normalized;
-                    if(Physics.Raycast(Camera.main.transform.position, baseDir, out RaycastHit hit, RAY_DIST))
+                    if(Physics.Raycast(Camera.main.transform.position, baseDir, out RaycastHit hit, RAY_DIST, 11))
                     {
                         if(isLaser)line.SetPosition(1, hit.point);
-
+                        print(hit.collider.gameObject.name);
                         if (hit.collider.gameObject.TryGetComponent(out Health objectHealth))
                         {
                             float distFromPlayer = Mathf.Abs(Vector3.Distance(Camera.main.transform.position, hit.collider.gameObject.transform.position));
