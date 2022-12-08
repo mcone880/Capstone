@@ -5,6 +5,7 @@ using UnityEngine;
 public class MeleeEnemy : Enemy
 {
     [SerializeField] public float hitRange;
+    [SerializeField] public Animator animator;
     [SerializeField] float hitDamage;
     [SerializeField] BoxCollider attackHitbox;
 
@@ -34,6 +35,7 @@ public class MeleeEnemy : Enemy
             transform.rotation = Quaternion.LookRotation(player.transform.position - transform.position, Vector3.up);
             MeleeAttack();
         }
+        animator.SetFloat("Speed", navMesh.velocity.magnitude);
     }
 
     private bool CheckForPlayer()
@@ -48,7 +50,6 @@ public class MeleeEnemy : Enemy
         }
         return false;
     }
-
     private Node FindBestNode(Area area)
     {
         List<Node> possibleNodes = new List<Node>();
@@ -78,8 +79,8 @@ public class MeleeEnemy : Enemy
         float distFromPlayer = Vector3.Distance(node.transform.position, player.transform.position);
         float distFromMe = Vector3.Distance(node.transform.position, transform.position);
 
-        if (distFromPlayer <= hitRange) node.value += 10;
         node.value -= distFromMe * 0.25f;
+        if (node.transform.position.y > player.transform.position.y) node.value++;
     }
     private void AssignAreaValue(Area area)
     {
@@ -88,7 +89,6 @@ public class MeleeEnemy : Enemy
         float distFromPlayer = Vector3.Distance(area.transform.position, player.transform.position);
         float distFromMe = Vector3.Distance(area.transform.position, transform.position);
 
-        if (distFromPlayer <= hitRange) area.value += 10;
         area.value -= distFromMe * 0.25f;
     }
     private Area FindBestArea()

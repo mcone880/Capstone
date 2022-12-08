@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RangedEnemy : Enemy
 {
+    [SerializeField] private Animator animator;
     [SerializeField] private GameObject projectile;
     [SerializeField] private int projectilesPerAttack;
     [SerializeField] private float timeBetweenShotInBurst;
@@ -52,6 +53,7 @@ public class RangedEnemy : Enemy
             transform.rotation = Quaternion.LookRotation(player.transform.position - transform.position, Vector3.up);
             RangedAttack();
         }
+        animator.SetFloat("Speed", navMesh.velocity.magnitude);
     }
 
     IEnumerator BurstFire(int projNum)
